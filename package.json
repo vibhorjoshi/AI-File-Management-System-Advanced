@@ -1,0 +1,59 @@
+{
+  "name": "ai-file-management-system-advanced",
+  "version": "2.0.0",
+  "private": true,
+  "description": "🤖 Advanced AI-powered file management system with intelligent duplicate detection, content analysis, and automated organization",
+  "keywords": ["ai", "file-management", "duplicate-detection", "nextjs", "fastapi", "ml", "similarity-detection"],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "pnpm --filter @ai-cleanup/web dev",
+    "dev:desktop": "pnpm --filter @ai-cleanup/desktop dev",
+    "dev:api": "cd services/api && python run.py",
+    "dev:ml": "cd services/ml-service && uvicorn app.main:app --reload --port 3002",
+    "build": "turbo run build",
+    "build:web": "turbo run build --filter=@ai-cleanup/web",
+    "build:desktop": "turbo run build --filter=@ai-cleanup/desktop",
+    "build:api": "cd services/api && pip install -r requirements.txt",
+    "db:generate": "pnpm --filter @ai-cleanup/db db:generate",
+    "db:push": "pnpm --filter @ai-cleanup/db db:push",
+    "db:seed": "pnpm --filter @ai-cleanup/db db:seed",
+    "db:studio": "pnpm --filter @ai-cleanup/db db:studio",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0",
+    "turbo": "^1.11.0",
+    "typescript": "^5.3.2"
+  },
+  "packageManager": "pnpm@8.11.0",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0",
+    "python": ">=3.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vibhorjoshi/AI-File-Management-System-Advanced.git"
+  },
+  "homepage": "https://github.com/vibhorjoshi/AI-File-Management-System-Advanced",
+  "bugs": {
+    "url": "https://github.com/vibhorjoshi/AI-File-Management-System-Advanced/issues"
+  },
+  "author": "Vibhor Joshi",
+  "license": "MIT"
+}
