@@ -16,6 +16,20 @@ from app.core.config import settings
 
 class SimilarityService:
     """Advanced ML-powered similarity detection service"""
+
+    @staticmethod
+    def _resolve_safe_path(base_dir: str, user_path: str) -> Optional[str]:
+        """
+        Safely join and validate a user-controlled path against a base directory.
+        Returns the resolved path if safe, None otherwise.
+        """
+        # Remove any leading slashes from user_path to prevent absolute path joining
+        user_path = user_path.lstrip("/\\")
+        joined_path = os.path.normpath(os.path.join(base_dir, user_path))
+        # Ensure the resolved path is within the base_dir
+        if os.path.commonpath([joined_path, base_dir]) == os.path.abspath(base_dir):
+            return joined_path
+        return None
     
     def __init__(self):
         self.clip_model = None
@@ -290,7 +304,11 @@ class SimilarityService:
         embeddings = {}
         for file_info in text_files:
             try:
-                with open(file_info["path"], 'r', encoding='utf-8') as f:
+                safe_path = self._resolve_safe_path(settings.FILE_ROOT, file_info["path"])
+                if not safe_path:
+                    print(f"Unsafe or invalid file path: {file_info['path']}")
+                    continue
+                with open(safe_path, 'r', encoding='utf-8') as f:
                     content = f.read()[:5000]  # First 5k chars
                 
                 embedding = await self.get_text_embedding(content)
